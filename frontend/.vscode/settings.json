@@ -24,5 +24,7 @@
   "editor.formatOnPaste": true,
   "editor.formatOnSave": true,
   "zenMode.centerLayout": false,
-  "editor.find.addExtraSpaceOnTop": false
+  "editor.find.addExtraSpaceOnTop": false,
+  "debug.showInlineBreakpointCandidates": false,
+  "editor.glyphMargin": false
 }
