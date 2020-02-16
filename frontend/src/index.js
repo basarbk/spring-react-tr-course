@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './bootstrap-override.scss';
 import App from './App';
-import UserSignupPage from './UserSignupPage';
+import UserSignupPage from './pages/UserSignupPage';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<UserSignupPage />, document.getElementById('root'));
