@@ -1,5 +1,6 @@
 import React from 'react';
 import { signup } from '../api/apiCalls';
+import Input from '../components/Input';
 
 class UserSignupPage extends React.Component {
   state = {
@@ -52,16 +53,8 @@ class UserSignupPage extends React.Component {
       <div className="container">
         <form>
           <h1 className="text-center">Sign Up</h1>
-          <div className="form-group">
-            <label>Username</label>
-            <input className={username ? 'form-control is-invalid' : 'form-control'} name="username" onChange={this.onChange} />
-            <div className="invalid-feedback">{username}</div>
-          </div>
-          <div className="form-group">
-            <label>Display Name</label>
-            <input className={displayName ? 'form-control is-invalid' : 'form-control'} name="displayName" onChange={this.onChange} />
-            <div className="invalid-feedback">{displayName}</div>
-          </div>
+          <Input name="username" label="Username" error={username} onChange={this.onChange} />
+          <Input name="displayName" label="Display Name" error={displayName} onChange={this.onChange} />
           <div className="form-group">
             <label>Password</label>
             <input className="form-control" name="password" type="password" onChange={this.onChange} />
