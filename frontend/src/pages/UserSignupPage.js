@@ -47,7 +47,7 @@ class UserSignupPage extends React.Component {
 
   render() {
     const { pendingApiCall, errors } = this.state;
-    const { username, displayName } = errors;
+    const { username, displayName, password } = errors;
 
     return (
       <div className="container">
@@ -55,10 +55,7 @@ class UserSignupPage extends React.Component {
           <h1 className="text-center">Sign Up</h1>
           <Input name="username" label="Username" error={username} onChange={this.onChange} />
           <Input name="displayName" label="Display Name" error={displayName} onChange={this.onChange} />
-          <div className="form-group">
-            <label>Password</label>
-            <input className="form-control" name="password" type="password" onChange={this.onChange} />
-          </div>
+          <Input name="password" label="Password" error={password} onChange={this.onChange} type="password" />
           <div className="form-group">
             <label>Password Repeat</label>
             <input className="form-control" name="passwordRepeat" type="password" onChange={this.onChange} />
