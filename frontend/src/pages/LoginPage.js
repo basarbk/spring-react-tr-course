@@ -27,11 +27,15 @@ class LoginPage extends Component {
       username,
       password
     };
+
+    const { push } = this.props.history;
+
     this.setState({
       error: null
     });
     try {
       await login(creds);
+      push('/');
     } catch (apiError) {
       this.setState({
         error: apiError.response.data.message
