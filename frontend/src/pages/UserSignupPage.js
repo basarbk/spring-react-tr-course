@@ -10,7 +10,6 @@ class UserSignupPage extends React.Component {
     displayName: null,
     password: null,
     passwordRepeat: null,
-    pendingApiCall: false,
     errors: {}
   };
 
@@ -44,7 +43,6 @@ class UserSignupPage extends React.Component {
       displayName,
       password
     };
-    this.setState({ pendingApiCall: true });
 
     try {
       const response = await signup(body);
@@ -53,14 +51,12 @@ class UserSignupPage extends React.Component {
         this.setState({ errors: error.response.data.validationErrors });
       }
     }
-
-    this.setState({ pendingApiCall: false });
   };
 
   render() {
-    const { pendingApiCall, errors } = this.state;
+    const { errors } = this.state;
     const { username, displayName, password, passwordRepeat } = errors;
-    const { t } = this.props;
+    const { t, pendingApiCall } = this.props;
     return (
       <div className="container">
         <form>

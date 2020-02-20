@@ -8,10 +8,13 @@ import LoginPage from './pages/LoginPage';
 import * as serviceWorker from './serviceWorker';
 import './i18n';
 import LanguageSelector from './components/LanguageSelector';
+import ApiProgress from './shared/ApiProgress';
 
 ReactDOM.render(
   <div>
-    <UserSignupPage />
+    <ApiProgress>
+      <UserSignupPage />
+    </ApiProgress>
     <LanguageSelector />
   </div>,
   document.getElementById('root')
