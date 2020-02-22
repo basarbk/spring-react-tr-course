@@ -3,20 +3,14 @@ import logo from '../assets/hoaxify.png';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
+import { logoutSuccess } from '../redux/authActions';
 // import { Authentication } from '../shared/AuthenticationContext';
 
 class TopBar extends Component {
   // static contextType = Authentication;
 
-  onClickLogout = () => {
-    const action = {
-      type: 'logout-success'
-    };
-    this.props.dispatch(action);
-  };
-
   render() {
-    const { t, username, isLoggedIn } = this.props;
+    const { t, username, isLoggedIn, onLogoutSuccess } = this.props;
     let links = (
       <ul className="navbar-nav ml-auto">
         <li>
@@ -39,7 +33,7 @@ class TopBar extends Component {
               {username}
             </Link>
           </li>
-          <li className="nav-link" onClick={this.onClickLogout} style={{ cursor: 'pointer' }}>
+          <li className="nav-link" onClick={onLogoutSuccess} style={{ cursor: 'pointer' }}>
             {t('Logout')}
           </li>
         </ul>
@@ -69,4 +63,10 @@ const mapStateToProps = store => {
   };
 };
 
-export default connect(mapStateToProps)(TopBarWithTranslation);
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogoutSuccess: () => dispatch(logoutSuccess())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopBarWithTranslation);
