@@ -5,11 +5,8 @@ import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
 import { connect } from 'react-redux';
 import { loginHandler } from '../redux/authActions';
-// import { Authentication } from '../shared/AuthenticationContext';
 
 const LoginPage = props => {
-  // static contextType = Authentication;
-
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
