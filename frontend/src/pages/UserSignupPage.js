@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Input from '../components/Input';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { signupHandler } from '../redux/authActions';
 
 const UserSignupPage = props => {
@@ -15,6 +15,8 @@ const UserSignupPage = props => {
   });
   const [errors, setErrors] = useState({});
 
+  const dispatch = useDispatch();
+
   const onChange = event => {
     const { name, value } = event.target;
     errors[name] = undefined;
@@ -25,7 +27,7 @@ const UserSignupPage = props => {
   const onClickSignup = async event => {
     event.preventDefault();
 
-    const { history, dispatch } = props;
+    const { history } = props;
     const { push } = history;
 
     const { username, displayName, password } = form;
@@ -46,8 +48,10 @@ const UserSignupPage = props => {
     }
   };
 
+  const { t } = useTranslation();
+
   const { username: usernameError, displayName: displayNameError, password: passwordError } = errors;
-  const { t, pendingApiCall } = props;
+  const { pendingApiCall } = props;
 
   let passwordRepeatError;
   if (form.password !== form.passwordRepeat) {
@@ -77,6 +81,4 @@ const UserSignupPage = props => {
 const UserSignupPageWithApiProgressForSignupRequest = withApiProgress(UserSignupPage, '/api/1.0/users');
 const UserSignupPageWithApiProgressForAuthRequest = withApiProgress(UserSignupPageWithApiProgressForSignupRequest, '/api/1.0/auth');
 
-const UserSignupPageWithTranslation = withTranslation()(UserSignupPageWithApiProgressForAuthRequest);
-
-export default connect()(UserSignupPageWithTranslation);
+export default UserSignupPageWithApiProgressForAuthRequest;
