@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../components/Input';
 import { useTranslation } from 'react-i18next';
 import ButtonWithProgress from '../components/ButtonWithProgress';
-import { withApiProgress } from '../shared/ApiProgress';
+import { useApiProgress } from '../shared/ApiProgress';
 import { useDispatch } from 'react-redux';
 import { loginHandler } from '../redux/authActions';
 
@@ -38,7 +38,7 @@ const LoginPage = props => {
 
   const { t } = useTranslation();
 
-  const { pendingApiCall } = props;
+  const pendingApiCall = useApiProgress('/api/1.0/auth');
 
   const buttonEnabled = username && password;
 
@@ -57,4 +57,4 @@ const LoginPage = props => {
   );
 };
 
-export default withApiProgress(LoginPage, '/api/1.0/auth');
+export default LoginPage;
