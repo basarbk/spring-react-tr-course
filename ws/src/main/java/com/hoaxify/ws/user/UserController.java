@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hoaxify.ws.shared.GenericResponse;
+import com.hoaxify.ws.user.vm.UserVM;
 
 @RestController
 public class UserController {
@@ -25,7 +26,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/api/1.0/users")
-	Page<UserProjection> getUsers(Pageable page){
-		return userService.getUsers(page);
+	Page<UserVM> getUsers(Pageable page){
+		return userService.getUsers(page).map(UserVM::new);
 	}
 }
