@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const UserPage = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState({});
   const [notFound, setNotFound] = useState(false);
 
   const { username } = useParams();
@@ -45,7 +45,7 @@ const UserPage = () => {
 
   return (
     <div className="container">
-      <ProfileCard />
+      <ProfileCard user={user} />
     </div>
   );
 };
