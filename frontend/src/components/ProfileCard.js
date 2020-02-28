@@ -4,14 +4,21 @@ import { useSelector } from 'react-redux';
 import ProfileImageWithDefault from './ProfileImageWithDefault';
 import { useTranslation } from 'react-i18next';
 import Input from './Input';
+import { updateUser } from '../api/apiCalls';
+import { useApiProgress } from '../shared/ApiProgress';
+import ButtonWithProgress from './ButtonWithProgress';
 
 const ProfileCard = props => {
   const [inEditMode, setInEditMode] = useState(false);
   const [updatedDisplayName, setUpdatedDisplayName] = useState();
   const { username: loggedInUsername } = useSelector(store => ({ username: store.username }));
   const routeParams = useParams();
+  const [user, setUser] = useState({});
 
-  const { user } = props;
+  useEffect(() => {
+    setUser(props.user);
+  }, [props.user]);
+
   const { username, displayName, image } = user;
   const { t } = useTranslation();
 
@@ -23,9 +30,18 @@ const ProfileCard = props => {
     }
   }, [inEditMode, displayName]);
 
-  const onClickSave = () => {
-    console.log(updatedDisplayName);
+  const onClickSave = async () => {
+    const body = {
+      displayName: updatedDisplayName
+    };
+    try {
+      const response = await updateUser(username, body);
+      setInEditMode(false);
+      setUser(response.data);
+    } catch (error) {}
   };
+
+  const pendingApiCall = useApiProgress('put', '/api/1.0/users/' + username);
 
   const pathUsername = routeParams.username;
   let message = 'We cannot edit';
@@ -60,11 +76,19 @@ const ProfileCard = props => {
               }}
             />
             <div>
-              <button className="btn btn-primary d-inline-flex" onClick={onClickSave}>
-                <i className="material-icons">save</i>
-                {t('Save')}
-              </button>
-              <button className="btn btn-light d-inline-flex ml-1" onClick={() => setInEditMode(false)}>
+              <ButtonWithProgress
+                className="btn btn-primary d-inline-flex"
+                onClick={onClickSave}
+                disabled={pendingApiCall}
+                pendingApiCall={pendingApiCall}
+                text={
+                  <>
+                    <i className="material-icons">save</i>
+                    {t('Save')}
+                  </>
+                }
+              />
+              <button className="btn btn-light d-inline-flex ml-1" onClick={() => setInEditMode(false)} disabled={pendingApiCall}>
                 <i className="material-icons">close</i>
                 {t('Cancel')}
               </button>
