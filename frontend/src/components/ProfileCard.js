@@ -64,14 +64,7 @@ const ProfileCard = props => {
   return (
     <div className="card text-center">
       <div className="card-header">
-        <ProfileImageWithDefault
-          className="rounded-circle shadow"
-          width="200"
-          height="200"
-          alt={`${username} profile`}
-          image={image}
-          tempImage={newImage}
-        />
+        <ProfileImageWithDefault className="rounded-circle shadow" width="200" height="200" alt={`${username} profile`} image={newImage || image} />
       </div>
       <div className="card-body">
         {!inEditMode && (
