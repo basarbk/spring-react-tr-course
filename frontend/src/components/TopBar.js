@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import logo from '../assets/hoaxify.png';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,23 @@ const TopBar = props => {
     displayName: store.displayName,
     image: store.image
   }));
+
+  const menuArea = useRef(null);
+
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  useEffect(() => {
+    document.addEventListener('click', menuClickTracker);
+    return () => {
+      document.removeEventListener('click', menuClickTracker);
+    };
+  }, [isLoggedIn]);
+
+  const menuClickTracker = event => {
+    if (menuArea.current === null || !menuArea.current.contains(event.target)) {
+      setMenuVisible(false);
+    }
+  };
 
   const dispatch = useDispatch();
 
@@ -37,15 +54,20 @@ const TopBar = props => {
     </ul>
   );
   if (isLoggedIn) {
+    let dropDownClass = 'dropdown-menu p-0 shadow';
+    if (menuVisible) {
+      dropDownClass += ' show';
+    }
+
     links = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto" ref={menuArea}>
         <li className="nav-item dropdown">
-          <div className="d-flex" style={{ cursor: 'pointer' }}>
+          <div className="d-flex" style={{ cursor: 'pointer' }} onClick={() => setMenuVisible(true)}>
             <ProfileImageWithDefault image={image} width="32" height="32" className="rounded-circle m-auto" />
             <span className="nav-link dropdown-toggle">{displayName}</span>
           </div>
-          <div className="dropdown-menu show p-0 shadow">
-            <Link className="dropdown-item d-flex p-2" to={`/user/${username}`}>
+          <div className={dropDownClass}>
+            <Link className="dropdown-item d-flex p-2" to={`/user/${username}`} onClick={() => setMenuVisible(false)}>
               <i className="material-icons text-info mr-2">person</i>
               {t('My Profile')}
             </Link>
