@@ -28,11 +28,11 @@ public class WsApplication {
 				user.setDisplayName("display"+i);
 				user.setPassword("P4ssword");
 				userService.save(user);
-			}
-			for(int i = 1;i<=50;i++) {
-				Hoax hoax = new Hoax();
-				hoax.setContent("hoax - " +i);
-				hoaxService.save(hoax);
+				for(int j = 1;j<=2;j++) {
+					Hoax hoax = new Hoax();
+					hoax.setContent("hoax (" +j + ") from user ("+i+")");
+					hoaxService.save(hoax, user);
+				}
 			}
 		};
 	}
