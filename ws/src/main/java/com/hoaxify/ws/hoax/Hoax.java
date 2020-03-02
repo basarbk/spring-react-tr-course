@@ -10,6 +10,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
+import com.hoaxify.ws.user.User;
+
 import lombok.Data;
 
 @Data
@@ -26,4 +28,5 @@ public class Hoax {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
 
+	private User user;
 }
