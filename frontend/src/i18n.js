@@ -23,7 +23,8 @@ i18n.use(initReactI18next).init({
         Save: 'Save',
         Cancel: 'Cancel',
         'My Profile': 'My Profile',
-        'There are no hoaxes': 'There are no hoaxes'
+        'There are no hoaxes': 'There are no hoaxes',
+        'Load old hoaxes': 'Load old hoaxes'
       }
     },
     tr: {
@@ -46,7 +47,8 @@ i18n.use(initReactI18next).init({
         Save: 'Kaydet',
         Cancel: 'İptal Et',
         'My Profile': 'Hesabım',
-        'There are no hoaxes': 'Hoax bulunamadı'
+        'There are no hoaxes': 'Hoax bulunamadı',
+        'Load old hoaxes': 'Geçmiş Hoaxları getir'
       }
     }
   },
