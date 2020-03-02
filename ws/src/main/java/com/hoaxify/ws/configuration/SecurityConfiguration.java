@@ -24,6 +24,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.csrf().disable();
 		http.httpBasic().authenticationEntryPoint(new AuthEntryPoint());
 		
+		http.headers().frameOptions().disable();
+		
 		http
 			.authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/api/1.0/auth").authenticated()
