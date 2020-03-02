@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hoaxify.ws.hoax.vm.HoaxVM;
 import com.hoaxify.ws.shared.CurrentUser;
 import com.hoaxify.ws.shared.GenericResponse;
 import com.hoaxify.ws.user.User;
@@ -31,8 +32,8 @@ public class HoaxController {
 	}
 	
 	@GetMapping("/hoaxes")
-	Page<Hoax> getHoaxes(@PageableDefault(sort = "id", direction = Direction.DESC) Pageable page){
-		return hoaxService.getHoaxes(page);
+	Page<HoaxVM> getHoaxes(@PageableDefault(sort = "id", direction = Direction.DESC) Pageable page){
+		return hoaxService.getHoaxes(page).map(HoaxVM::new);
 	}
 
 }
