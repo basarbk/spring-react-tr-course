@@ -51,3 +51,7 @@ export const getNewHoaxCount = (id, username) => {
   const path = username ? `/api/1.0/users/${username}/hoaxes/${id}?count=true` : `/api/1.0/hoaxes/${id}?count=true`;
   return axios.get(path);
 };
+
+export const getNewHoaxes = id => {
+  return axios.get(`/api/1.0/hoaxes/${id}?direction=after`);
+};
