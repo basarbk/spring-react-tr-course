@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getHoaxes, getOldHoaxes } from '../api/apiCalls';
+import { getHoaxes, getOldHoaxes, getNewHoaxCount } from '../api/apiCalls';
 import { useTranslation } from 'react-i18next';
 import HoaxView from './HoaxView';
 import { useApiProgress } from '../shared/ApiProgress';
@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 
 const HoaxFeed = () => {
   const [hoaxPage, setHoaxPage] = useState({ content: [], last: true, number: 0 });
+  const [newHoaxCount, setNewHoaxCount] = useState(0);
   const { t } = useTranslation();
   const { username } = useParams();
 
@@ -15,12 +16,28 @@ const HoaxFeed = () => {
   const initialHoaxLoadProgress = useApiProgress('get', path);
 
   let lastHoaxId = 0;
+  let firstHoaxId = 0;
   if (hoaxPage.content.length > 0) {
+    firstHoaxId = hoaxPage.content[0].id;
+
     const lastHoaxIndex = hoaxPage.content.length - 1;
     lastHoaxId = hoaxPage.content[lastHoaxIndex].id;
   }
   const oldHoaxPath = username ? `/api/1.0/users/${username}/hoaxes/${lastHoaxId}` : `/api/1.0/hoaxes/${lastHoaxId}`;
   const loadOldHoaxesProgress = useApiProgress('get', oldHoaxPath, true);
+
+  useEffect(() => {
+    const getCount = async () => {
+      const response = await getNewHoaxCount(firstHoaxId);
+      setNewHoaxCount(response.data.count);
+    };
+    let looper = setInterval(() => {
+      getCount();
+    }, 1000);
+    return function cleanup() {
+      clearInterval(looper);
+    };
+  }, [firstHoaxId]);
 
   useEffect(() => {
     const loadHoaxes = async page => {
@@ -51,6 +68,7 @@ const HoaxFeed = () => {
 
   return (
     <div>
+      {newHoaxCount > 0 && <div className="alert alert-secondary text-center mb-1">{t('There are new hoaxes')}</div>}
       {content.map(hoax => {
         return <HoaxView key={hoax.id} hoax={hoax} />;
       })}

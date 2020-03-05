@@ -45,6 +45,10 @@ public class HoaxService {
 		User inDB = userService.getByUsername(username);
 		return hoaxRepository.findByIdLessThanAndUser(id, inDB, page);
 	}
+
+	public long getNewHoaxesCount(long id) {
+		return hoaxRepository.countByIdGreaterThan(id);
+	}
 	
 	
 
