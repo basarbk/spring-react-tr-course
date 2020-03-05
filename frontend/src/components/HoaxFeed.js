@@ -28,7 +28,7 @@ const HoaxFeed = () => {
 
   useEffect(() => {
     const getCount = async () => {
-      const response = await getNewHoaxCount(firstHoaxId);
+      const response = await getNewHoaxCount(firstHoaxId, username);
       setNewHoaxCount(response.data.count);
     };
     let looper = setInterval(() => {
@@ -37,7 +37,7 @@ const HoaxFeed = () => {
     return function cleanup() {
       clearInterval(looper);
     };
-  }, [firstHoaxId]);
+  }, [firstHoaxId, username]);
 
   useEffect(() => {
     const loadHoaxes = async page => {

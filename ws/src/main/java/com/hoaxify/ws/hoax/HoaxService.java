@@ -49,6 +49,11 @@ public class HoaxService {
 	public long getNewHoaxesCount(long id) {
 		return hoaxRepository.countByIdGreaterThan(id);
 	}
+
+	public long getNewHoaxesCountOfUser(long id, String username) {
+		User inDB = userService.getByUsername(username);
+		return hoaxRepository.countByIdGreaterThanAndUser(id, inDB);
+	}
 	
 	
 
