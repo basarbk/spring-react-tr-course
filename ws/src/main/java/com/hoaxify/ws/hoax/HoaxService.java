@@ -60,6 +60,11 @@ public class HoaxService {
 	public List<Hoax> getNewHoaxes(long id, Sort sort) {
 		return hoaxRepository.findByIdGreaterThan(id, sort);
 	}
+
+	public List<Hoax> getNewHoaxesOfUser(long id, String username, Sort sort) {
+		User inDB = userService.getByUsername(username);
+		return hoaxRepository.findByIdGreaterThanAndUser(id, inDB, sort);
+	}
 	
 	
 
