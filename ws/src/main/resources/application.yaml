@@ -2,7 +2,7 @@ spring:  jpa:    properties:      javax:
         persistence:
           validation:
             mode: none  data:    web:      pageable:        default-page-size: 10
-        max-page-size: 100  profiles:    active:    - dev
+        max-page-size: 100  profiles:    active:    - dev  servlet:    multipart:      max-file-size: 10MB
 ---
 spring:  profiles: production
 hoaxify:  upload-path: storage-production

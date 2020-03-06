@@ -56,3 +56,7 @@ export const getNewHoaxes = (id, username) => {
   const path = username ? `/api/1.0/users/${username}/hoaxes/${id}?direction=after` : `/api/1.0/hoaxes/${id}?direction=after`;
   return axios.get(path);
 };
+
+export const postHoaxAttachment = attachment => {
+  return axios.post('/api/1.0/hoax-attachments', attachment);
+};
