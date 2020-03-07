@@ -24,6 +24,8 @@ public class FileAttachment {
 	
 	private String name;
 	
+	private String fileType;
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
