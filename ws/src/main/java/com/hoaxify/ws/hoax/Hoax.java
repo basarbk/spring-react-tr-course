@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.hoaxify.ws.file.FileAttachment;
 import com.hoaxify.ws.user.User;
 
 import lombok.Data;
@@ -30,4 +32,7 @@ public class Hoax {
 
 	@ManyToOne
 	private User user;
+	
+	@OneToOne(mappedBy = "hoax")
+	private FileAttachment fileAttachment;
 }
