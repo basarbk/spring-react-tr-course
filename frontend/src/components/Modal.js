@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import ButtonWithProgress from './ButtonWithProgress';
 
 const Modal = props => {
-  const { visible, onClickCancel, message, onClickOk, pendingApiCall } = props;
+  const { visible, onClickCancel, message, onClickOk, pendingApiCall, title, okButton } = props;
   const { t } = useTranslation();
 
   let className = 'modal fade';
@@ -16,7 +16,7 @@ const Modal = props => {
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title">{t('Delete Hoax')}</h5>
+            <h5 className="modal-title">{title}</h5>
           </div>
           <div className="modal-body">{message}</div>
           <div className="modal-footer">
@@ -28,7 +28,7 @@ const Modal = props => {
               onClick={onClickOk}
               pendingApiCall={pendingApiCall}
               disabled={pendingApiCall}
-              text={t('Delete Hoax')}
+              text={okButton}
             />
           </div>
         </div>
