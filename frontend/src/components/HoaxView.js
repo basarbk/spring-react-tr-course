@@ -64,6 +64,7 @@ const HoaxView = props => {
       </div>
       <Modal
         visible={modalVisible}
+        title={t('Delete Hoax')}
         onClickCancel={onClickCancel}
         onClickOk={onClickDelete}
         message={
@@ -75,6 +76,7 @@ const HoaxView = props => {
           </div>
         }
         pendingApiCall={pendingApiCall}
+        okButton={t('Delete Hoax')}
       />
     </>
   );
