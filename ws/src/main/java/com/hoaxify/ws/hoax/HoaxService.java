@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -29,20 +28,15 @@ public class HoaxService {
 	
 	FileService fileService;
 
-	public HoaxService(HoaxRepository hoaxRepository, FileAttachmentRepository fileAttachmentRepository
+	public HoaxService(HoaxRepository hoaxRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository
 			,FileService fileService) {
 		super();
 		this.hoaxRepository = hoaxRepository;
 		this.fileAttachmentRepository = fileAttachmentRepository;
 		this.fileService = fileService;
-	}
-	
-	@Autowired
-	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-
+	
 	public void save(HoaxSubmitVM hoaxSubmitVM, User user) {
 		Hoax hoax = new Hoax();
 		hoax.setContent(hoaxSubmitVM.getContent());
@@ -120,13 +114,5 @@ public class HoaxService {
 		}
 		hoaxRepository.deleteById(id);
 	}
-	
-	public void deleteHoaxesOfUser(String username) {
-		User inDB = userService.getByUsername(username);
-		Specification<Hoax> userOwned = userIs(inDB);
-		List<Hoax> hoaxesToBeRemoved = hoaxRepository.findAll(userOwned);
-		hoaxRepository.deleteAll(hoaxesToBeRemoved);
-	}
-	
 
 }
